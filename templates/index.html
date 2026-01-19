@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Celebrity Face Detection</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #9c27b0;
+            --secondary-color: #ff9800;
+            --dark-bg: #121212;
+            --dark-card: #1e1e1e;
+            --text-light: #ffffff;
+        }
+        
+        body {
+            background-color: var(--dark-bg);
+            color: var(--text-light);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, var(--primary-color), #673ab7);
+            padding: 2rem 0;
+            margin-bottom: 3rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+        
+        .main-card {
+            background-color: var(--dark-card);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            padding: 2rem;
+            margin-bottom: 3rem;
+            border: none;
+        }
+        
+        .upload-area {
+            border: 2px dashed rgba(255,255,255,0.2);
+            border-radius: 10px;
+            padding: 3rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .upload-area:hover {
+            border-color: var(--primary-color);
+            background-color: rgba(156, 39, 176, 0.1);
+        }
+        
+        .btn-primary-custom {
+            background-color: var(--primary-color);
+            border: none;
+            border-radius: 50px;
+            padding: 12px 30px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary-custom:hover {
+            background-color: #7b1fa2;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(156, 39, 176, 0.4);
+        }
+        
+        .file-input {
+            display: none;
+        }
+        
+        .result-section {
+            background-color: var(--dark-card);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-top: 2rem;
+
+        }
+        
+        .celeb-image {
+            border-radius: 10px;
+            max-width: 100%;
+            max-height: 300px;
+            object-fit: cover;
+            border: 2px solid rgba(255,255,255,0.1);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        
+        .celeb-name {
+            color: var(--secondary-color);
+            font-weight: 700;
+            font-size: 2rem;
+            margin: 1rem 0;
+        }
+        
+        footer {
+            background-color: #000000;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+        
+        .feature-card {
+            background-color: var(--dark-card);
+            border-radius: 10px;
+            padding: 2rem;
+            height: 100%;
+            transition: all 0.3s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <div class="header">
+        <div class="container text-center">
+            <h1 class="display-4 fw-bold">Celebrity Face Detection {{ name }}</h1>
+            <p class="lead">Upload an image and discover which celebrity is in it</p>
+        </div>
+    </div>
+    
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Upload Section -->
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="main-card">
+                    <h2 class="text-center mb-4">Upload Celebrity Image</h2>
+                <form action='/face_details' method='POST' enctype="multipart/form-data">
+                    <div class="upload-area" onclick="document.getElementById('fileInput').click()">
+                        <i class="fas fa-cloud-upload-alt fa-4x mb-3" style="color: var(--primary-color);"></i>
+                        <h4>Drag & Drop or Click to Browse</h4>
+                        <p class="text-muted">Supported formats: JPEG, PNG</p>
+                        <input type="file" name='user_image' id="fileInput" class="file-input" accept="image/*">
+                    </div>
+                
+                    <div class="text-center mt-4">
+                        <button class="btn btn-primary-custom">
+                            <i class="fas fa-search me-2"></i> Detect Celebrity
+                        </button>
+                    </div>
+                </form>
+                    
+                </div>
+            </div>
+        </div>
+
+
+        {% if results_ %}
+        
+        <!-- Result Section -->
+        <div class="row justify-content-center" >
+            <div class="col-lg-8">
+                <div class="main-card result-section" id="resultSection">
+                    <h2 class="text-center mb-4">Detection Result</h2>
+                    <div class="row">
+                   
+                        <div class="col-md-6">
+               
+                            <div class="mt-4 mt-md-0">
+                            {% for result in results_%}
+                                <h3 class="celeb-name">Celebrity Name :{{ result }}</h3>
+
+                                <p class="mb-4">Confidence: <span class="badge bg-success">{{ result }}</span></p>
+                      
+                           {%endfor%}
+                                <h5>Biography:</h5>
+                                <p>The biography of the detected celebrity will appear here along with some interesting facts.</p>
+                                <div class="d-flex mt-4">
+                                    <button class="btn btn-primary-custom me-3">
+                                        <i class="fas fa-info-circle me-2"></i> More Info
+                                    </button>
+                                    <button class="btn btn-outline-light">
+                                        <i class="fas fa-redo me-2"></i> Try Another
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+      {% endif %}
+        
+        <!-- Features Section -->
+        <div class="row mt-5">
+            <div class="col-md-4 mb-4">
+                <div class="feature-card">
+                    <div class="text-center">
+                        <i class="fas fa-bolt feature-icon"></i>
+                        <h4>Quick Results</h4>
+                        <p>Get instant celebrity recognition within seconds of uploading your image.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="feature-card">
+                    <div class="text-center">
+                        <i class="fas fa-database feature-icon"></i>
+                        <h4>Massive Database</h4>
+                        <p>Our system recognizes thousands of celebrities from all over the world.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="feature-card">
+                    <div class="text-center">
+                        <i class="fas fa-lock feature-icon"></i>
+                        <h4>Secure & Private</h4>
+                        <p>Your uploaded images are processed securely and never stored permanently.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <footer class="text-center">
+        <div class="container">
+            <div class="social-links mb-3">
+                <a href="#" class="text-light me-3"><i class="fab fa-facebook-f fa-lg"></i></a>
+                <a href="#" class="text-light me-3"><i class="fab fa-twitter fa-lg"></i></a>
+                <a href="#" class="text-light me-3"><i class="fab fa-instagram fa-lg"></i></a>
+                <a href="#" class="text-light"><i class="fab fa-github fa-lg"></i></a>
+            </div>
+            <p class="mb-0">&copy; 2023 Celebrity Face Detection. All rights reserved.</p>
+        </div>
+    </footer>
+    
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
