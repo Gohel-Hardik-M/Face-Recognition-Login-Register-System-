@@ -1,0 +1,1 @@
+# Download FaceNet Model From Below Link and Copy in this "model" folder with changing its name.
