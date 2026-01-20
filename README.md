@@ -71,7 +71,7 @@ This project uses **FaceNet model**, which is **not included** due to large file
 
 Download `facenet_keras.h5` from the link below:
 
-👉 https://github.com/nyoki-mtl/keras-facenet/blob/master/model/facenet_keras.h5
+👉 https://www.kaggle.com/datasets/rmamun/kerasfaceneth5
 
 ### 📌 Steps
 
