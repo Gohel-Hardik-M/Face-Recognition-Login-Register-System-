@@ -1,7 +1,3 @@
-# Face-Recognition-Login-Register-System-
-Face Recognition Login &amp; Register System 
-
-
 # Face Recognition Login & Registration System 🔐👤
 
 A Python-based face recognition authentication system that allows users to **register and log in using facial recognition** instead of traditional passwords.  
