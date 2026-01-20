@@ -89,9 +89,31 @@ face_reco
 
 
 # You can use:
-XAMPP
-WAMP
-Any MySQL Server
+- XAMPP
+- WAMP
+- Any MySQL Server
+
+### How to run project :
+
+- Clone the repository
+- install requirements.txt `(pip install requirements.txt)`
+- setup the `facenet_keras.h5` model (Read Above to know how to do it)
+- Create `face_reco` named database in XAMPP or WAMP or any MYSQL server
+- run   `app.py`
+
+
+## How it Works
+- During registration, users upload their face images.
+- The system generates embeddings and stores them in embeddings.pkl.
+- During login, the system compares the live face with stored embeddings to authenticate the user.
+
+##💡 Notes
+- Keep embeddings.pkl in the project root. It stores all registered users’ face embeddings.
+- Make sure MySQL service is running before starting the Flask app.
+- The face_reco table stores all registered usernames.
+- Users need to upload multiple images during registration for better recognition.
+
+
 
 
 
