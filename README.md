@@ -114,6 +114,15 @@ face_reco
 - Users need to upload multiple images during registration for better recognition.
 
 
+--
+
+## 💡 Want to Contribute?
+Contributions are welcome! 🎉 If you’d like to improve this project, please fork the repo and submit a pull request. You can also open issues for bugs, suggestions, or new features. Steps to contribute:
+- 1. Fork the repository
+- 2. Create a new branch 
+- 3. Make your changes
+- 4. Commit and push (`git commit -m "Add feature xyz"`)
+- 5. Open a Pull Request
 
 
 
