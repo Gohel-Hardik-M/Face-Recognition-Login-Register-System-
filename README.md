@@ -107,7 +107,7 @@ face_reco
 - The system generates embeddings and stores them in embeddings.pkl.
 - During login, the system compares the live face with stored embeddings to authenticate the user.
 
-##💡 Notes
+## 💡 Notes
 - Keep embeddings.pkl in the project root. It stores all registered users’ face embeddings.
 - Make sure MySQL service is running before starting the Flask app.
 - The face_reco table stores all registered usernames.
