@@ -75,7 +75,7 @@ Download `facenet_keras.h5` from the link below:
 
 ### 📌 Steps
 
-1. Create a folder named **`models`**
+1. Download `facenet_keras.h5`
 2. Paste `facenet_keras.h5` inside the `models` folder
 
 ---
